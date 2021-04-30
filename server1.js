@@ -31,13 +31,23 @@ http.createServer((req, res) => {
             if(err) return console.log(err);
             console.log("Conn success");
             db = database.db('inventory_db');
-            db.collection('temporary').insertOne({"ID":data[0], "Brand":data[1], "Category":data[2], "ProductName":data[3], "Stock":data[4], "OldCostPrice":data[5], "OldSellingPrice":data[6]}, (err, res) => {
+            db.collection('temporary').find().toArray((err, res) => {
                 if(err) throw err;
-                console.log("Added Temporary Storage Success");
-            });
-            //res.writeHead(302, {location: "https://google.com",});
-            //res.writeHead(302, {location: "http://localhost:3000/updateFromButton",});
-            //res.end();
+                if(res.length > 0) {
+                    db.collection('temporary').remove({}, (err, res) => {
+                        db.collection('temporary').insertOne({"ID":data[0], "Brand":data[1], "Category":data[2], "ProductName":data[3], "Stock":data[4], "OldCostPrice":data[5], "OldSellingPrice":data[6]}, (err, res) => {
+                            if(err) throw err;
+                            console.log("Added Temporary Storage Success");
+                        });
+                    });
+                }
+                else {
+                    db.collection('temporary').insertOne({"ID":data[0], "Brand":data[1], "Category":data[2], "ProductName":data[3], "Stock":data[4], "OldCostPrice":data[5], "OldSellingPrice":data[6]}, (err, res) => {
+                        if(err) throw err;
+                        console.log("Added Temporary Storage Success");
+                    });
+                }
+            })
         });
         res.writeHead(302, {location: "http://localhost:3000/updateFromButton",});
         res.end();

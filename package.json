@@ -1,0 +1,21 @@
+{
+  "name": "inventory-management",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "http": "0.0.1-security",
+    "mongo": "^0.1.0",
+    "mongoose": "^5.12.6",
+    "mongoskin": "^2.1.0",
+    "url": "^0.11.0"
+  }
+}

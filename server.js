@@ -60,10 +60,22 @@ app.get('/deleteproduct', (req, res) => {
 });
 
 app.post('/addproduct', (req, res) => {
-        db.collection('inventory').insertOne(req.body, (err, result) => {
-            if(err) throw err;
-        });
-        res.redirect('/');
+    db.collection('inventory').find({"ID": req.body.ID}).toArray((err, result) => {
+        if(err) {
+            throw err;
+        }
+        else {
+            if(result.length > 0) {
+                res.redirect('/errorpage');
+            }
+            else {
+                db.collection('inventory').insertOne(req.body, (error) => {
+                    if(error) throw error;
+                    res.redirect('/');
+                });
+            }
+        }
+    });
 });
 
 app.post('/updatesales', (req, res) => {

@@ -60,17 +60,10 @@ app.get('/deleteproduct', (req, res) => {
 });
 
 app.post('/addproduct', (req, res) => {
-    db.collection('inventory').find().toArray((err, result) => {
-        if(err) {
-            db.collection('inventory').insertOne(req.body, (err, result) => {
-                if(err) throw err;
-            });
-            res.redirect('/');
-        }
-        else {
-            res.redirect('/errorpage');
-        }
-    });
+        db.collection('inventory').insertOne(req.body, (err, result) => {
+            if(err) throw err;
+        });
+        res.redirect('/');
 });
 
 app.post('/updatesales', (req, res) => {

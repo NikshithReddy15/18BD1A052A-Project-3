@@ -2,17 +2,6 @@ const express = require('express');
 const app = express();
 const MongoClient = require('mongodb').MongoClient;
 const bodyParser = require('body-parser');
-/*const http = require('http');
-var app = http.createServer((req, res) => {
-    console.log(req.url);
-    const current_url = new URL("localhost:3000//"+req.url);
-
-    const search_params = current_url.searchParams;
-
-    const id = search_params.get('id');
-
-    console.log(id);
-});*/
 
 var db;
 
@@ -30,10 +19,14 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {
-    db.collection('inventory').find().toArray((err, result) => {
-        if(err) throw err;
-        res.render('mainpage.ejs', {data: result, success: 'Good'});
-    })
+        db.collection('inventory').find().toArray((err, result) => {
+            if(err) throw err;
+            res.render('mainpage.ejs', {data: result, success: 'Good'});
+        })
+});
+
+app.get('/errorpage', (req, res) => {
+    res.render('errorpage.ejs');
 });
 
 app.get('/salesdetails', (req, res) => { 
@@ -67,10 +60,17 @@ app.get('/deleteproduct', (req, res) => {
 });
 
 app.post('/addproduct', (req, res) => {
-    db.collection('inventory').insertOne(req.body, (err, result) => {
-        if(err) throw err;
+    db.collection('inventory').find().toArray((err, result) => {
+        if(err) {
+            db.collection('inventory').insertOne(req.body, (err, result) => {
+                if(err) throw err;
+            });
+            res.redirect('/');
+        }
+        else {
+            res.redirect('/errorpage');
+        }
     });
-    res.redirect('/');
 });
 
 app.post('/updatesales', (req, res) => {

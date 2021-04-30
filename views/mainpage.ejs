@@ -1,0 +1,208 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+        <title>Fashion Feet</title>
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+        <!-- Theme style -->
+        <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+        <!-- Google Font: Source Sans Pro -->
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    </head>
+
+    <body class="hold-transition sidebar-mini">
+        <div class="wrapper">
+
+            <!-- Navbar -->
+            <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+            <!-- Left navbar links -->
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" data-widget="pushmenu" href="#" role="button"> 
+                            <i class="fas fa-bars"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item d-none d-sm-inline-block">
+                    <a href="/" class="nav-link">Home</a>
+                    </li>
+                </ul>
+            </nav>
+            <!-- /.navbar -->
+            
+            <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+                <a href="/" class="brand-link">
+                <img src="/images/FFlogo.jpg"
+                    alt="Fashion Feet Logo"
+                    class="brand-image img-circle elevation-3">
+                <span class="brand-text font-weight-light">Fashion Feet</span>
+                </a>
+                <!-- Sidebar -->
+                <div class="sidebar">
+                    <!-- Sidebar Menu -->
+                    <nav class="mt-2">
+                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <li class="nav-item">
+                            <a href="addproduct" class="nav-link">
+                            <i class="nav-icon far fa-circle text-info"></i>
+                            <p class="text">Add Product</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="salesdetails" class="nav-link">
+                            <i class="nav-icon far fa-circle text-info"></i>
+                            <p class="text">Sales Details</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="updatesales" class="nav-link">
+                            <i class="nav-icon far fa-circle text-info"></i>
+                            <p class="text">Update Sales</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="deleteproduct" class="nav-link">
+                            <i class="nav-icon far fa-circle text-info"></i>
+                            <p class="text">Delete Product</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="updateproduct" class="nav-link">
+                            <i class="nav-icon far fa-circle text-info"></i>
+                            <p class="text">Update Product</p>
+                            </a>
+                        </li>
+                        </ul>
+                    </nav>
+                    <!-- /.sidebar-menu -->
+                </div>
+                <!-- /.sidebar -->
+            </aside>
+            
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                
+                <section class="content-header">
+                    <h1>Fashion Feet Inventory Management</h1>
+                </section>
+                
+                <section class="content">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Stock Details</h3>
+                        
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                <i class="fas fa-minus"></i></button>
+                                <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                                <i class="fas fa-times"></i></button>
+                            </div>
+                        </div>
+
+                        <div class="card-body table-responsive p-0" style="height: 400px;">
+                            <table class="table table-striped table-bordered table-head-fixed text-nowrap" id="detailstable">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 10%" >Product ID</th>
+                                        <th style="width: 10%" >Brand</th>
+                                        <th style="width: 10%" >Category</th>
+                                        <th style="width: 10%" >Name</th>
+                                        <th style="width: 10%" >Size</th>
+                                        <th style="width: 15%" >Quantity</th>
+                                        <th style="width: 10%" >Cost Price</th>
+                                        <th style="width: 10%" >Selling Price</th>
+                                        <th style="width: 20%" > </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% for(var i = 0; i < data.length; i++) {%>
+                                        <tr>
+                                            <td id="ID"><%= data[i].ID%></td>
+                                            <td id="Brand"><%= data[i].Brand%></td>
+                                            <td id="Category"><%= data[i].Category%></td>
+                                            <td id="ProductName"><%= data[i].ProductName%></td>
+                                            <td id="Size"><%= data[i].Size%></td>
+                                            <td id="Quantity">
+                                                <div class="progress progress-xs">
+                                                <% if(data[i].Quantity >= 0 && data[i].Quantity < 30) {%>
+                                                    <div class="progress-bar bg-danger" style="width:<%=data[i].Quantity%>%"></div>
+                                                <%} else if(data[i].Quantity >= 30 && data[i].Quantity < 70) {%>
+                                                    <div class="progress-bar bg-warning" style="width:<%=data[i].Quantity%>%"></div>
+                                                <%} else {%>
+                                                    <div class="progress-bar bg-success" style="width:<%=data[i].Quantity%>%"></div>
+                                                <%}%>
+                                                </div>
+                                                <small><%= data[i].Quantity%></small>
+                                            </td>
+                                            <td id="CostPrice"><%= data[i].CostPrice%></td>
+                                            <td id="SellingPrice"><%= data[i].SellingPrice%></td>
+                                            <td class="project-actions text-right">
+                                                <button type="submit" class="btn btn-info btn-sm" onclick="window.location.href='http://localhost:9000/updateproduct?data=<%= data[i].ID%>&data=<%= data[i].Brand%>&data=<%= data[i].Category%>&data=<%= data[i].ProductName%>&data=<%= data[i].Quantity%>&data=<%= data[i].CostPrice%>&data=<%= data[i].SellingPrice%>'" ><i class="fas fa-pencil-alt"></i> Edit</a></button>
+                                                <button type="submit" class="btn btn-danger btn-sm" onclick="window.location.href='http://localhost:9000/deleteproduct?id=<%=data[i].ID%>'"><i class="fas fa-trash"></i> Delete</a></button>
+                                            </td>
+                                        </tr>
+                                    <%}%>
+                                </tbody>
+                            </table>
+                        </div>                        
+                    </div>
+                </section>
+
+                <section class="content">
+                    <a class="btn btn-info btn-sm" href="/addproduct"><i class="fas fa-plus-square"></i> Add New Product</a>
+                </section>
+
+            </div>
+
+            <!-- Control Sidebar -->
+            <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+            </aside>
+            <!-- /.control-sidebar -->
+        </div>
+        <!-- ./wrapper -->
+
+        <!-- jQuery -->
+        <script src="/plugins/jquery/jquery.min.js"></script>
+        <!-- Bootstrap 4 -->
+        <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- overlayScrollbars -->
+        <script src="/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+        <!-- AdminLTE App -->
+        <script src="/dist/js/adminlte.min.js"></script>
+        <!-- AdminLTE for demo purposes -->
+        <script src="/dist/js/demo.js"></script>
+        <!-- DataTables  & Plugins -->
+        <script src="/plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+        <script src="/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+        <script src="/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+        <script src="/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+        <script src="/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+        <script src="/plugins/jszip/jszip.min.js"></script>
+        <script src="/plugins/pdfmake/pdfmake.min.js"></script>
+        <script src="/plugins/pdfmake/vfs_fonts.js"></script>
+        <script src="/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+        <script src="/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+        <script src="/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
+        <script>
+            $(function () {
+              $('#detailstable').DataTable({
+                "paging": false,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": false,
+                "autoWidth": false,
+                "responsive": true,
+              });
+            });
+        </script>
+
+    </body>
+</html>
